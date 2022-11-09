@@ -1,4 +1,4 @@
-package com.dmm.moviewcompose.ui.theme
+package com.dmm.moviecompose.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

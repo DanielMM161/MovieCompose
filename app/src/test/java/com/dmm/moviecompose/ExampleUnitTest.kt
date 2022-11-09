@@ -1,4 +1,4 @@
-package com.dmm.moviewcompose
+package com.dmm.moviecompose
 
 import org.junit.Test
 

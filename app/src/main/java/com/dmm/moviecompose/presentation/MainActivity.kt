@@ -1,4 +1,4 @@
-package com.dmm.moviewcompose
+package com.dmm.moviecompose.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,7 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.dmm.moviewcompose.ui.theme.MoviewComposeTheme
+import com.dmm.moviecompose.ui.theme.MoviewComposeTheme
 
 class MainActivity : ComponentActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
