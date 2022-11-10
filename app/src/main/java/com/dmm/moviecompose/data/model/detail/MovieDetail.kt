@@ -1,12 +1,13 @@
-package com.dmm.moviecompose.data.model
+package com.dmm.moviecompose.data.model.detail
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.dmm.moviecompose.data.model.MovieGenre
 import com.squareup.moshi.Json
 
-@Entity( tableName = "Movie")
-data class MovieDto(
+@Entity( tableName = "movie_detail")
+data class MovieDetail(
 	@PrimaryKey
 	@ColumnInfo(name = "id")
 	@field:Json(name = "id")
@@ -16,7 +17,7 @@ data class MovieDto(
 	val backdropPath: String? = null,
 	@ColumnInfo(name = "genres")
 	@field:Json(name = "genres")
-	val genres: List<GenreDto>?,
+	val genres: List<MovieGenre>?,
 	@ColumnInfo(name = "original_title")
 	@field:Json(name = "original_title")
 	val originalTitle: String?,

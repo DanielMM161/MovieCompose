@@ -4,18 +4,22 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.dmm.moviecompose.data.model.MovieDto
+import com.dmm.moviecompose.data.model.detail.MovieDetail
+import com.dmm.moviecompose.data.model.MoviesModel
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MovieDao {
 
-	@Query("Select * FROM movie")
-	fun getMovies(): Flow<List<MovieDto>>
+	@Query("Select * FROM movies")
+	fun getPopularMovies(): Flow<List<MoviesModel>>
 
-	@Query("Select * FROM movie Where genres = :genre")
-	fun getMoviesByGenre(genre: Int): Flow<List<MovieDto>>
+	@Query("Select * FROM movie_detail Where id = :id")
+	suspend fun getMovieById(id: Int): MovieDetail
+
+	@Query("Select * FROM movies Where page = :page")
+	fun getMoviesByPage(page: Int): Flow<List<MoviesModel>>
 
 	@Insert(onConflict = OnConflictStrategy.REPLACE)
-	suspend fun insertMovies(movies: List<MovieDto>)
+	suspend fun insertMovies(movieDetails: List<MoviesModel>)
 }

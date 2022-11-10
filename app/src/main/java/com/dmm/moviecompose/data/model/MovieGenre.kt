@@ -5,8 +5,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity( tableName = "Genre")
-data class GenreDto(
+@Entity( tableName = "genre")
+data class MovieGenre(
 	@PrimaryKey
 	@ColumnInfo(name = "id")
 	@field:Json(name = "id")

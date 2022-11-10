@@ -3,6 +3,10 @@ package com.dmm.moviecompose.di
 import android.app.Application
 import androidx.room.Room
 import com.dmm.moviecompose.data.local.MovieDataBase
+import com.dmm.moviecompose.domain.repository.MovieRepository
+import com.dmm.moviecompose.domain.use_case.GetGenreMovies
+import com.dmm.moviecompose.domain.use_case.GetMovies
+import com.dmm.moviecompose.domain.use_case.MovieUseCase
 import com.dmm.moviecompose.utils.Constants.BASE_URL
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -58,6 +62,15 @@ object AppModule {
 			.client(okHttpClient)
 			.addConverterFactory(MoshiConverterFactory.create())
 			.build()
+	}
+
+	@Provides
+	@Singleton
+	fun provideUseCase(repository: MovieRepository): MovieUseCase {
+		return MovieUseCase(
+			getMovies = GetMovies(repository),
+			getGenreMovies = GetGenreMovies(repository)
+		)
 	}
 
 }

@@ -39,6 +39,7 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion compose_version
+        kotlinCompilerVersion '1.5.21'
     }
     packagingOptions {
         resources {
@@ -94,4 +95,7 @@ dependencies {
 
     // Kotlin Extensions and Coroutines support for Room
     implementation "androidx.room:room-ktx:2.3.0"
+
+    // Coil
+    implementation "io.coil-kt:coil-compose:2.2.2"
 }
