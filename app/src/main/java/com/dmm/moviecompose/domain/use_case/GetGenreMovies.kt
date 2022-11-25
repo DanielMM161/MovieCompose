@@ -1,6 +1,6 @@
 package com.dmm.moviecompose.domain.use_case
 
-import com.dmm.moviecompose.data.model.MovieGenre
+import com.dmm.moviecompose.data.model.Genre
 import com.dmm.moviecompose.domain.repository.MovieRepository
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
@@ -11,8 +11,8 @@ class GetGenreMovies(
 ) {
 
 	@OptIn(DelicateCoroutinesApi::class)
-	suspend operator fun invoke(): List<MovieGenre> = GlobalScope.async {
-		return@async repository.getMoviesGenre().genres
+	suspend operator fun invoke(): List<Genre> = GlobalScope.async {
+		return@async repository.getMoviesGenre()
 	}.await()
 
 }

@@ -2,7 +2,7 @@ package com.dmm.moviecompose.data.model
 
 import com.squareup.moshi.Json
 
-data class MovieGenresModel(
+data class GenresModel(
 	@field:Json(name = "genres")
-	val genres: List<MovieGenre>
+	val genres: List<Genre>
 )

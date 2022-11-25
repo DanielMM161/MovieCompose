@@ -12,16 +12,16 @@ class GetMovies(
 	private val repository: MovieRepository
 ) {
 
-	operator fun invoke(
+	operator suspend fun invoke(
 		movieOrder: MovieOrder = Genre(listOf())
-	): Flow<List<Movie>> {
-		return repository.getPopularMovies().map { moviesModel ->
+	): List<Movie> {
+		return repository.getPopularMovies(1).let { movies ->
 			when(movieOrder) {
 				is Genre -> {
-					moviesModel.movies.filter { movie -> searchGenres(movieOrder.genreIds, movie.genreİds) }
+					movies.filter { movie -> searchGenres(movieOrder.genreIds, movie.genreİds) }
 				}
 				is Popular -> {
-					moviesModel.movies
+					movies
 				}
 			}
 		}

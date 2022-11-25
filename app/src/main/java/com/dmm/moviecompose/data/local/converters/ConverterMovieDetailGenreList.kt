@@ -9,10 +9,9 @@ import com.squareup.moshi.Types
 import javax.inject.Inject
 
 @ProvidedTypeConverter
-class ConverterGenreDto @Inject constructor(
+class ConverterMovieDetailGenreList @Inject constructor(
 	private val moshi: Moshi
 ){
-
 	@TypeConverter
 	fun fromString(value: String): List<Genre>? {
 		val listType = Types.newParameterizedType(List::class.java, Genre::class.java)

@@ -4,14 +4,18 @@ import com.squareup.moshi.Json
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.squareup.moshi.JsonClass
 
 @Entity( tableName = "genre")
-data class MovieGenre(
+@JsonClass(generateAdapter = true)
+data class Genre(
 	@PrimaryKey
 	@ColumnInfo(name = "id")
 	@field:Json(name = "id")
-	val genre_id: Int?,
+	val genre_id: Int = 0,
 	@ColumnInfo(name = "name")
 	@field:Json(name = "name")
-	val name: String?
+	val name: String = "",
+	@ColumnInfo(name = "is_selected")
+	val isSelected: Boolean = false
 )

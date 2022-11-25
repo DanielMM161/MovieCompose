@@ -12,5 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "MoviewCompose"
+rootProject.name = "MovieCompose"
 include ':app'
