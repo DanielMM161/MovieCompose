@@ -3,13 +3,19 @@ package com.dmm.moviecompose.data.local
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.dmm.moviecompose.data.local.converters.ConverterMovieDetailCastList
 import com.dmm.moviecompose.data.local.converters.ConverterMovieDetailGenreList
 import com.dmm.moviecompose.data.local.converters.ConverterMovieGenreList
 import com.dmm.moviecompose.data.model.Genre
 import com.dmm.moviecompose.data.model.Movie
 import com.dmm.moviecompose.data.model.detail.MovieDetail
 
-@TypeConverters( value = [ConverterMovieGenreList::class, ConverterMovieDetailGenreList::class])
+@TypeConverters( value = [
+		ConverterMovieGenreList::class,
+		ConverterMovieDetailGenreList::class,
+		ConverterMovieDetailCastList::class
+	]
+)
 @Database(
 	entities = [Genre::class, Movie::class, MovieDetail::class],
 	version = 1,

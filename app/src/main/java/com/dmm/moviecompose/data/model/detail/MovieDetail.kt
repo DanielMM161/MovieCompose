@@ -3,6 +3,7 @@ package com.dmm.moviecompose.data.model.detail
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.dmm.moviecompose.data.model.Cast
 import com.dmm.moviecompose.data.model.Genre
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -38,6 +39,8 @@ data class MovieDetail(
 	@ColumnInfo(name = "overview")
 	@field:Json(name = "overview")
 	val overView: String = "",
+	@ColumnInfo(name = "cast")
+	val cast: List<Cast> = listOf()
 )
 
 

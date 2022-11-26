@@ -6,6 +6,7 @@ import com.dmm.moviecompose.data.local.MovieDao
 import com.dmm.moviecompose.data.local.MovieDataBase
 import com.dmm.moviecompose.data.local.MovieGenreDao
 import com.dmm.moviecompose.data.local.converters.ConverterGenreDto
+import com.dmm.moviecompose.data.local.converters.ConverterMovieDetailCastList
 import com.dmm.moviecompose.data.local.converters.ConverterMovieDetailGenreList
 import com.dmm.moviecompose.data.local.converters.ConverterMovieGenreList
 import com.dmm.moviecompose.data.remote.MovieApi
@@ -37,7 +38,8 @@ object AppModule {
 	fun provideDataBase(
 		app: Application,
 		converterMovieGenreList: ConverterMovieGenreList,
-		converterMovieDetailGenreList: ConverterMovieDetailGenreList
+		converterMovieDetailGenreList: ConverterMovieDetailGenreList,
+		converterMovieDetailCastList: ConverterMovieDetailCastList
 	): MovieDataBase {
 		return Room
 			.databaseBuilder(
@@ -48,6 +50,7 @@ object AppModule {
 			.fallbackToDestructiveMigration()
 			.addTypeConverter(converterMovieGenreList)
 			.addTypeConverter(converterMovieDetailGenreList)
+			.addTypeConverter(converterMovieDetailCastList)
 			.build()
 	}
 
@@ -131,6 +134,12 @@ object AppModule {
 	@Singleton
 	fun provideConverterMovieDetailGenreList(moshi: Moshi): ConverterMovieDetailGenreList {
 		return ConverterMovieDetailGenreList(moshi)
+	}
+
+	@Provides
+	@Singleton
+	fun provideConverterMovideDetailCastList(moshi: Moshi): ConverterMovieDetailCastList {
+		return ConverterMovieDetailCastList(moshi)
 	}
 
 }

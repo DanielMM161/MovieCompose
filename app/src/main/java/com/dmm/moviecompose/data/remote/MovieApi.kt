@@ -1,5 +1,6 @@
 package com.dmm.moviecompose.data.remote
 
+import com.dmm.moviecompose.data.model.CastModel
 import com.dmm.moviecompose.data.model.GenresModel
 import com.dmm.moviecompose.data.model.MoviesModel
 import com.dmm.moviecompose.data.model.detail.MovieDetail
@@ -38,6 +39,12 @@ interface MovieApi {
 		@Query("api_key") apiKey: String = API_KEY,
 		@Query("language") language: String = "en-US"
 	): GenresModel
+
+	@GET(CREDITS)
+	suspend fun getMovieCredits(
+		@Path("movieId") movieId: String,
+		@Query("api_key") apiKey: String = API_KEY,
+	): CastModel
 
 //	@GET(SERIES_POPULAR)
 //	suspend fun getPopularTV(

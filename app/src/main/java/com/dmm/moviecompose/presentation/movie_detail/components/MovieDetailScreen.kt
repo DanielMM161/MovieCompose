@@ -25,7 +25,8 @@ fun MovieDetailScreen(
 			overView = movieDetail.overView,
 			releaseDate = movieDetail.releaseDate,
 			genreList = movieDetail.genres,
-			voteAverage = movieDetail.voteAverage
+			voteAverage = movieDetail.voteAverage,
+			castList = movieDetail.cast
 		)
 
 	}

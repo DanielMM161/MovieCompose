@@ -1,6 +1,10 @@
 package com.dmm.moviecompose.presentation.movie_detail.components
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
@@ -12,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.dmm.moviecompose.data.model.Cast
 import com.dmm.moviecompose.data.model.Genre
 import com.dmm.moviecompose.presentation.util.components.VoteAverage
 import com.dmm.moviecompose.ui.theme.Subtitle
@@ -24,18 +29,20 @@ fun DescriptionCard(
 	overView: String = "",
 	genreList: List<Genre>,
 	releaseDate: String,
-	voteAverage: Double
+	voteAverage: Double,
+	castList: List<Cast> = listOf()
 ) {
-	var genres = genreList.map { it.name }.joinToString(", ")
+	val genres = genreList.map { it.name }.joinToString(", ")
+	Log.e("cast --> ", "${castList.size}")
 	Surface(
 		color = White,
 		modifier = Modifier
 			.fillMaxSize()
 			.padding(top = 300.dp)
+			.verticalScroll(rememberScrollState())
 	) {
 		Column(
 			modifier = Modifier
-				.verticalScroll(rememberScrollState())
 				.padding(26.dp),
 			verticalArrangement = Arrangement.Top,
 			horizontalAlignment = Alignment.Start,
@@ -45,24 +52,24 @@ fun DescriptionCard(
 				text = title,
 				style = MaterialTheme.typography.h3.copy(fontWeight = FontWeight.Bold)
 			)
-			Spacer(modifier = Modifier.size(8.dp))
+			Spacer(modifier = Modifier.size(2.dp))
 
 			//Genres
 			Text(
 				text = genres,
 				color = Subtitle
 			)
-			Spacer(modifier = Modifier.size(8.dp))
+			Spacer(modifier = Modifier.size(4.dp))
 
 			//Release Date
 			Text(
 				text = "Release: ${releaseDate}",
 				color = Subtitle
 			)
+			Spacer(modifier = Modifier.size(8.dp))
 
 			//Vote Average
 			VoteAverage(truncate(voteAverage))
-
 			Spacer(modifier = Modifier.size(26.dp))
 
 			//Overview
@@ -75,6 +82,25 @@ fun DescriptionCard(
 				text = overView,
 				fontSize = 17.sp
 			)
+			Spacer(modifier = Modifier.size(26.dp))
+
+			if(castList.isNotEmpty()) {
+				Text(
+					text = "Cast",
+					style = MaterialTheme.typography.h5.copy(fontWeight = FontWeight.Bold)
+				)
+				Spacer(modifier = Modifier.size(14.dp))
+				LazyRow(modifier = Modifier.fillMaxWidth()) {
+					items(castList) {
+						CastSection(
+							name = it.name,
+							profilePath = it.profilePath ?: ""
+						) {
+
+						}
+					}
+				}
+			}
 		}
 	}
 }

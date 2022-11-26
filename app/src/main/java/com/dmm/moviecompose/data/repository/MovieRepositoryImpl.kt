@@ -2,10 +2,7 @@ package com.dmm.moviecompose.data.repository
 
 import com.dmm.moviecompose.data.local.MovieDao
 import com.dmm.moviecompose.data.local.MovieGenreDao
-import com.dmm.moviecompose.data.model.Genre
-import com.dmm.moviecompose.data.model.GenresModel
-import com.dmm.moviecompose.data.model.Movie
-import com.dmm.moviecompose.data.model.MoviesModel
+import com.dmm.moviecompose.data.model.*
 import com.dmm.moviecompose.data.model.detail.MovieDetail
 import com.dmm.moviecompose.data.remote.MovieApi
 import com.dmm.moviecompose.domain.repository.MovieRepository
@@ -31,13 +28,23 @@ class MovieRepositoryImpl(
 		TODO("Not yet implemented")
 	}
 
-	override suspend fun getMovieDetail(id: Int): MovieDetail {
-		var movideDetail = movieDao.getMovieDetail(id)
+	override suspend fun getMovieDetail(movieId: Int): MovieDetail {
+		var movideDetail = movieDao.getMovieDetail(movieId)
 		if(movideDetail == null) {
-			movideDetail = movieApi.getMovieDetail(id.toString())
+			movideDetail = movieApi
+				.getMovieDetail(movieId.toString())
+				.copy(cast = getMovieCast(movieId))
 			movieDao.insertMovieDetail(movideDetail)
 		}
 		return movideDetail
+	}
+
+	private suspend fun getMovieCast(movieId: Int): List<Cast> {
+		val castList = movieApi.getMovieCredits(movieId.toString()).cast
+		if(castList.isNotEmpty()) {
+			return castList
+		}
+		return listOf()
 	}
 
 	override suspend fun getMoviesGenre(): List<Genre> {
