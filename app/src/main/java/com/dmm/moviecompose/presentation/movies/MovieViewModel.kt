@@ -9,6 +9,7 @@ import com.dmm.moviecompose.domain.use_case.MovieUseCase
 import com.dmm.moviecompose.domain.util.MovieOrder
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.launchIn
@@ -31,19 +32,26 @@ class MovieViewModel @Inject constructor(
 
 	init {
 		viewModelScope.launch {
-			useCase.getGenreMovies().let {
-				_state.value = state.value.copy(
-					genres = it
-				)
+			callLoading() {
+				useCase.getGenreMovies().let {
+					_state.value = state.value.copy(
+						genres = it
+					)
+				}
+				getMovies(MovieOrder.Popular())
 			}
 		}
-		getMovies(MovieOrder.Popular())
+
 	}
 
 	fun onEvent(event: MovieEvent) {
 		when(event) {
 			is MovieEvent.Order -> {
-				getMovies(event.movieOrder)
+				viewModelScope.launch {
+					callLoading() {
+						getMovies(event.movieOrder)
+					}
+				}
 			}
 			is MovieEvent.SelectGenre -> {
 				_state.value = state.value.copy(
@@ -59,7 +67,7 @@ class MovieViewModel @Inject constructor(
 		}
 	}
 
-	fun getMovies(movieOrder: MovieOrder) = viewModelScope.launch {
+	suspend fun getMovies(movieOrder: MovieOrder) {
 			useCase.getMovies(movieOrder)
 			.let { movieList ->
 				_state.value = state.value.copy(
@@ -69,8 +77,19 @@ class MovieViewModel @Inject constructor(
 			}
 	}
 
+	private suspend fun callLoading(callback: suspend () -> Unit) {
+		_eventFlow.emit(
+			UiEvent.Loading(isLoading = true)
+		)
+		delay(500)
+		callback()
+		_eventFlow.emit(
+			UiEvent.Loading(isLoading = false)
+		)
+	}
+
 	sealed class UiEvent() {
-		class selectGenre() : UiEvent()
+		data class Loading(val isLoading: Boolean) : UiEvent()
 	}
 
 }

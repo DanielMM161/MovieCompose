@@ -39,7 +39,7 @@ fun ChipSection(
 						if (genre.isSelected) MaterialTheme.colors.primary
 						else MaterialTheme.colors.secondary
 					)
-					.padding(15.dp)
+					.padding(10.dp)
 			) {
 				Text(text = genre.name, color = if(genre.isSelected) White else Black)
 			}
