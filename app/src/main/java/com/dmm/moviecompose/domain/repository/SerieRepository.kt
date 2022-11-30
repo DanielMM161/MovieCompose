@@ -5,14 +5,15 @@ import com.dmm.moviecompose.data.model.GenresModel
 import com.dmm.moviecompose.data.model.AudiovisualModel
 import com.dmm.moviecompose.data.model.MoviesModel
 import com.dmm.moviecompose.data.model.detail.MovieDetail
+import com.dmm.moviecompose.data.model.detail.SerieDetail
 import kotlinx.coroutines.flow.Flow
 
 
-interface MovieRepository {
+interface SerieRepository {
 
-	suspend fun getPopularMovies(page: Int): List<AudiovisualModel>
+	suspend fun getPopularSeries(page: Int): List<AudiovisualModel>
 
-	suspend fun getMovieDetail(id: Int): MovieDetail
+	suspend fun getSerieDetail(id: Int): SerieDetail
 
-	suspend fun getMoviesGenre(): List<Genre>
+	suspend fun getSeriesGenre(): List<Genre>
 }

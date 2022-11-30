@@ -9,6 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.mapSaver
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.UiComposable
 import androidx.compose.ui.unit.dp
@@ -16,10 +18,21 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.dmm.moviecompose.domain.util.MovieOrder
 import com.dmm.moviecompose.presentation.movies.MovieEvent
+import com.dmm.moviecompose.presentation.movies.MovieState
 import com.dmm.moviecompose.presentation.movies.MovieViewModel
 import com.dmm.moviecompose.presentation.util.Screen
 import com.dmm.moviecompose.presentation.util.components.Loading
 import kotlinx.coroutines.flow.collectLatest
+
+//val MoviesSaver = run {
+//	val movies: List<Movie> = emptyList()
+//	val genres: List<Genre> = emptyList()
+//	val movieOrder: MovieOrder = MovieOrder.Popular()
+//	mapSaver(
+//		save = { mapOf("movies" to it.movies, "genres" to it.genres, "movieOrder" to it.movieOrder)},
+//		restore = { MovieState(it["movies"] as List<Movie>, it["genres"] as List<Genre>, it["movieOrder"] as MovieOrder) }
+//	)
+//}
 
 @Composable
 fun MovieScreen(
@@ -28,7 +41,7 @@ fun MovieScreen(
 ) {
 	val state = viewModel.state.value
 	var loading = remember {
-		mutableStateOf(true)
+		mutableStateOf(false)
 	}
 
 	LaunchedEffect(key1 = true) {

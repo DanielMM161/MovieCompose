@@ -1,4 +1,4 @@
-package com.dmm.moviecompose.domain.use_case
+package com.dmm.moviecompose.domain.use_case.movie
 
 data class MovieUseCase(
 	val getMovies: GetMovies,

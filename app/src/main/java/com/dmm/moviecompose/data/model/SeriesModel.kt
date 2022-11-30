@@ -1,21 +1,18 @@
 package com.dmm.moviecompose.data.model
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
-@Entity(tableName = "movies")
+@Entity(tableName = "series")
 @JsonClass(generateAdapter = true)
-data class MoviesModel(
+data class SeriesModel(
 	@PrimaryKey()
-	@ColumnInfo(name = "page")
 	@field:Json(name = "page")
 	val page: Int = 1,
-	@ColumnInfo(name = "results")
 	@field:Json(name = "results")
-	val movies: List<AudiovisualModel> = listOf(),
+	val series: List<AudiovisualModel> = listOf(),
 	@field:Json(name = "total_pages")
 	val totalPages: Int = 0,
 	@field:Json(name = "total_results")

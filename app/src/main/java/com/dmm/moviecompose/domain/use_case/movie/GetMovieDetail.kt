@@ -1,4 +1,4 @@
-package com.dmm.moviecompose.domain.use_case
+package com.dmm.moviecompose.domain.use_case.movie
 
 import com.dmm.moviecompose.data.model.detail.MovieDetail
 import com.dmm.moviecompose.domain.repository.MovieRepository

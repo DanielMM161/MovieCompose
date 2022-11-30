@@ -5,21 +5,21 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dmm.moviecompose.data.model.Genre
-import com.dmm.moviecompose.domain.use_case.MovieUseCase
+import com.dmm.moviecompose.domain.use_case.movie.MovieUseCase
+import com.dmm.moviecompose.domain.use_case.serie.SerieUseCase
 import com.dmm.moviecompose.domain.util.MovieOrder
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MovieViewModel @Inject constructor(
-		val useCase: MovieUseCase
+		val useCase: MovieUseCase,
+		val serieUseCase: SerieUseCase
 ) : ViewModel() {
 
 	private val _state = mutableStateOf(MovieState())
@@ -57,7 +57,12 @@ class MovieViewModel @Inject constructor(
 				_state.value = state.value.copy(
 					genres = state.value.genres.map {
 						if(it.genre_id == event.genreId) {
-							Genre(genre_id = it.genre_id, name = it.name, isSelected = !it.isSelected)
+							Genre(
+								genre_id = it.genre_id,
+								name = it.name,
+								genreType = it.genreType,
+								isSelected = !it.isSelected
+							)
 						} else {
 							it
 						}

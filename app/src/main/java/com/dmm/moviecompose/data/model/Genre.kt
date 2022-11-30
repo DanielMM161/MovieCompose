@@ -17,5 +17,7 @@ data class Genre(
 	@field:Json(name = "name")
 	val name: String = "",
 	@ColumnInfo(name = "is_selected")
-	val isSelected: Boolean = false
+	val isSelected: Boolean = false,
+	@ColumnInfo(name = "genre_type")
+	val genreType: String = ""
 )

@@ -1,12 +1,10 @@
-package com.dmm.moviecompose.domain.use_case
+package com.dmm.moviecompose.domain.use_case.movie
 
-import com.dmm.moviecompose.data.model.Movie
+import com.dmm.moviecompose.data.model.AudiovisualModel
 import com.dmm.moviecompose.domain.util.MovieOrder
 import com.dmm.moviecompose.domain.repository.MovieRepository
 import com.dmm.moviecompose.domain.util.MovieOrder.Genre
 import com.dmm.moviecompose.domain.util.MovieOrder.Popular
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 
 class GetMovies(
 	private val repository: MovieRepository
@@ -14,7 +12,7 @@ class GetMovies(
 
 	operator suspend fun invoke(
 		movieOrder: MovieOrder = Genre(listOf())
-	): List<Movie> {
+	): List<AudiovisualModel> {
 		return repository.getPopularMovies(1).let { movies ->
 			when(movieOrder) {
 				is Genre -> {
